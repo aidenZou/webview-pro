@@ -23,6 +23,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity
 
     private String url = "https://youcai.shequcun.com/#!/";
     //    private String url = "http://m.baidu.com";
+    private ProgressBar progressBar;
     private WebView webView;
     private Toolbar toolbar;
 
@@ -141,6 +143,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void init() {
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
         webView = (WebView) findViewById(R.id.webView);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -215,12 +218,22 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 // newProgress 1-100 之间的整数
+
+//                if (newProgress == 100) {
+//                    // 网页加载完毕
+//                    closeDialog();
+//                } else {
+//                    // 网页正在加载
+//                    //openDialog(newProgress);
+//                }
+
                 if (newProgress == 100) {
-                    // 网页加载完毕
-                    closeDialog();
+                    progressBar.setVisibility(View.INVISIBLE);
                 } else {
-                    // 网页正在加载
-                    openDialog(newProgress);
+                    if (View.INVISIBLE == progressBar.getVisibility()) {
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+                    progressBar.setProgress(newProgress);
                 }
 
                 super.onProgressChanged(view, newProgress);
