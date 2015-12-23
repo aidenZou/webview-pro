@@ -12,9 +12,14 @@
         android:title="@string/action_show_url"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_localhost_youcai"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/action_localhost_youcai"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_online_youcai"
+        android:orderInCategory="100"
+        android:title="@string/action_online_youcai"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_youcai"
@@ -25,5 +30,10 @@
         android:id="@+id/action_share"
         android:orderInCategory="100"
         android:title="@string/action_share"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
         app:showAsAction="never" />
 </menu>

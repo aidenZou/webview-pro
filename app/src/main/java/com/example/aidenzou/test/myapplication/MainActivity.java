@@ -107,6 +107,10 @@ public class MainActivity extends AppCompatActivity
             webView.reload();
         } else if (id == R.id.action_show_url) {
             Toast.makeText(this, webView.getUrl(), Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.action_online_youcai) {
+            webView.loadUrl("https://youcai.shequcun.com/");
+        } else if (id == R.id.action_localhost_youcai) {
+            webView.loadUrl("http://192.168.1.222:8001/2#!/");
         }
 
         return super.onOptionsItemSelected(item);
@@ -143,7 +147,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void init() {
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         webView = (WebView) findViewById(R.id.webView);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -192,7 +196,8 @@ public class MainActivity extends AppCompatActivity
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 super.onReceivedError(view, errorCode, description, failingUrl);
 
-                view.loadUrl("file:///android_asset/error.html");
+                //view.loadUrl("file:///android_asset/error.html");
+                Toast.makeText(MainActivity.this, "页面加载错误，错误码：" + errorCode, Toast.LENGTH_SHORT).show();
             }
 
             // 处理https请求，为WebView处理ssl证书设置

@@ -7,7 +7,9 @@
     <string name="action_settings">Settings</string>
     <string name="action_refresh">刷新</string>
     <string name="action_show_url">查看url</string>
-    <string name="action_youcai">有菜</string>
+    <string name="action_localhost_youcai">有菜(本地)</string>
+    <string name="action_online_youcai">有菜(线上)</string>
+    <string name="action_youcai">浏览器打开有菜</string>
     <string name="action_share">分享</string>
     <string name="title_activity_login">Sign in</string>
 
