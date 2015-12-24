@@ -1,23 +1,17 @@
 package com.example.aidenzou.test.myapplication;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.view.KeyEvent;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -26,12 +20,12 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class WebActivity extends AppCompatActivity {
 
     private String url = "https://youcai.shequcun.com/#!/";
     //    private String url = "http://m.baidu.com";
     private ProgressBar progressBar;
+//    private BaseWeView webView;
     private WebView webView;
     private Toolbar toolbar;
 
@@ -40,11 +34,46 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_web);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setLogo(R.drawable.ic_sync_black_24dp);
+        toolbar.setTitle("My Title");
         toolbar.setSubtitle("Sub title");
+        toolbar.setNavigationIcon(R.drawable.ic_notifications_black_24dp);
+
+//        toolbar.setOnMenuItemClickListener(onMenuItemClick);
+
+//        private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                String msg = "";
+//                switch (menuItem.getItemId()) {
+//                    case R.id.action_edit:
+//                        msg += "Click edit";
+//                        break;
+//                    case R.id.action_share:
+//                        msg += "Click share";
+//                        break;
+//                    case R.id.action_settings:
+//                        msg += "Click setting";
+//                        break;
+//                }
+//
+//                if(!msg.equals("")) {
+//                    Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                }
+//                return true;
+//            }
+//        };
+
+//        @Override
+//        public boolean onCreateOptionsMenu(Menu menu) {
+//            // 為了讓 Toolbar 的 Menu 有作用，這邊的程式不可以拿掉
+//            getMenuInflater().inflate(R.menu.menu_main, menu);
+//            return true;
+//        }
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -55,108 +84,18 @@ public class MainActivity extends AppCompatActivity
 //            }
 //        });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        init();
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+//        init();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent();
-            intent.setAction("aaa.bbb.settings");
-            intent.addCategory("android.intent.category.DEFAULT");
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.action_share) {
-            Toast.makeText(getApplicationContext(), "分享未实现", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.action_youcai) {
-            // 通过浏览器打开
-            Uri uri = Uri.parse(url);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-        } else if (id == R.id.action_refresh) {
-            webView.reload();
-        } else if (id == R.id.action_show_url) {
-            Toast.makeText(this, webView.getUrl(), Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.action_online_youcai) {
-            webView.loadUrl("https://youcai.shequcun.com/");
-        } else if (id == R.id.action_localhost_youcai) {
-            webView.loadUrl("http://192.168.1.222:8001/#!/");
-        } else if (id == R.id.action_web_view) {
-            Intent intent = new Intent();
-            intent.setAction("aaa.bbb.webActivity");
-            intent.addCategory("android.intent.category.DEFAULT");
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        } else if (id == R.id.nav_login) {
-            Intent intent = new Intent();
-            intent.setAction("aaa.bbb.login");
-            intent.addCategory("android.intent.category.DEFAULT");
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        getMenuInflater().inflate(R.menu.menu_web_view, menu);
         return true;
     }
 
     private void init() {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         webView = (WebView) findViewById(R.id.webView);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         // 配置调试WebViews
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -204,7 +143,7 @@ public class MainActivity extends AppCompatActivity
                 super.onReceivedError(view, errorCode, description, failingUrl);
 
                 //view.loadUrl("file:///android_asset/error.html");
-                Toast.makeText(MainActivity.this, "页面加载错误，错误码：" + errorCode, Toast.LENGTH_SHORT).show();
+                Toast.makeText(WebActivity.this, "页面加载错误，错误码：" + errorCode, Toast.LENGTH_SHORT).show();
             }
 
             // 处理https请求，为WebView处理ssl证书设置
@@ -253,7 +192,7 @@ public class MainActivity extends AppCompatActivity
 
             private void openDialog(int newProgress) {
                 if (dialog == null) {
-                    dialog = new ProgressDialog(MainActivity.this);
+                    dialog = new ProgressDialog(WebActivity.this);
                     dialog.setTitle("正在加载");
                     dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                     dialog.setProgress(newProgress);
@@ -297,4 +236,5 @@ public class MainActivity extends AppCompatActivity
 
         return super.onKeyDown(keyCode, event);
     }
+
 }

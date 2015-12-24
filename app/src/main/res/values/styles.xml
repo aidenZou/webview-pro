@@ -17,4 +17,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!--自定义-->
+    <!--<style name="AppTheme.Base" parent="Theme.AppCompat">-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<del><item name="android:windowNoTitle">true</item></del>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+    <!--</style>-->
+
 </resources>
