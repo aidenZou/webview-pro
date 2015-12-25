@@ -25,8 +25,7 @@ public class WebActivity extends AppCompatActivity {
     private String url = "https://youcai.shequcun.com/#!/";
     //    private String url = "http://m.baidu.com";
     private ProgressBar progressBar;
-//    private BaseWeView webView;
-    private WebView webView;
+    private BaseWebView webView;
     private Toolbar toolbar;
 
     private ProgressDialog dialog;
@@ -37,11 +36,15 @@ public class WebActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         toolbar.setLogo(R.drawable.ic_sync_black_24dp);
         toolbar.setTitle("My Title");
         toolbar.setSubtitle("Sub title");
         toolbar.setNavigationIcon(R.drawable.ic_notifications_black_24dp);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        webView = (BaseWebView) findViewById(R.id.webView);
+        webView.openUrl("http://192.168.1.222:8001");
 
 //        toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
@@ -95,28 +98,14 @@ public class WebActivity extends AppCompatActivity {
 
     private void init() {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        webView = (WebView) findViewById(R.id.webView);
+        webView = (BaseWebView) findViewById(R.id.webView);
 
         // 配置调试WebViews
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
 
-        WebSettings webSettings = webView.getSettings();
-        // 启用支持 Javascript
-        webSettings.setJavaScriptEnabled(true);
-        // 有限使用缓存
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        // 不使用缓存
-        //webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-
-        // localStorage
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setAppCacheMaxSize(1024 * 1024 * 8);
         String appCachePath = getApplicationContext().getCacheDir().getAbsolutePath();
-        webSettings.setAppCachePath(appCachePath);
-        webSettings.setAllowFileAccess(true);
-        webSettings.setAppCacheEnabled(true);
 
         webView.loadUrl(url);
 
@@ -229,11 +218,10 @@ public class WebActivity extends AppCompatActivity {
                 webView.goBack();
                 return true;
             } else {
-                // 退出程序
-                System.exit(0);
+                // 结束当前Activity
+                this.finish();
             }
         }
-
         return super.onKeyDown(keyCode, event);
     }
 
