@@ -1,6 +1,8 @@
 package com.example.aidenzou.test.myapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -22,7 +25,7 @@ import android.widget.Toast;
 
 public class WebActivity extends AppCompatActivity {
 
-    private String url = "https://youcai.shequcun.com/#!/";
+    private String url = "https://youcai.shequcun.com";
     //    private String url = "http://m.baidu.com";
     private ProgressBar progressBar;
     private BaseWebView webView;
@@ -36,7 +39,7 @@ public class WebActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setLogo(R.drawable.ic_sync_black_24dp);
+//        toolbar.setLogo(R.drawable.ic_sync_black_24dp);
         toolbar.setTitle("My Title");
         toolbar.setSubtitle("Sub title");
         toolbar.setNavigationIcon(R.drawable.ic_notifications_black_24dp);
@@ -44,7 +47,7 @@ public class WebActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         webView = (BaseWebView) findViewById(R.id.webView);
-        webView.openUrl("http://192.168.1.222:8001");
+        webView.openUrl(url);
 
 //        toolbar.setOnMenuItemClickListener(onMenuItemClick);
 
@@ -94,6 +97,39 @@ public class WebActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_web_view, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent();
+            intent.setAction("aaa.bbb.settings");
+            intent.addCategory("android.intent.category.DEFAULT");
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_youcai) {
+            // 通过浏览器打开
+            Uri uri = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        } else if (id == R.id.action_refresh) {
+            webView.reload();
+        } else if (id == R.id.action_show_url) {
+            Toast.makeText(this, webView.getUrl(), Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.action_online_youcai) {
+            webView.loadUrl("https://youcai.shequcun.com/");
+        } else if (id == R.id.action_localhost_youcai) {
+            webView.loadUrl("http://192.168.1.222:8001/#!/");
+        } else if (id == R.id.action_web_view) {
+            Intent intent = new Intent();
+            intent.setAction("aaa.bbb.webActivity");
+            intent.addCategory("android.intent.category.DEFAULT");
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void init() {

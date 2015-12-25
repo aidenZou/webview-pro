@@ -31,11 +31,6 @@ public class BaseWebView extends WebView {
         this.loadUrl(this.url);
     }
 
-    // 刷新当前url
-    public void reload() {
-        this.reload();
-    }
-
     public BaseWebView(Context context) {
         super(context);
         activity = (Activity) context;
