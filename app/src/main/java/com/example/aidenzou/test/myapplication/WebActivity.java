@@ -26,7 +26,6 @@ import android.widget.Toast;
 public class WebActivity extends AppCompatActivity {
 
     private String url = "https://youcai.shequcun.com";
-    //    private String url = "http://m.baidu.com";
     private ProgressBar progressBar;
     private BaseWebView webView;
     private Toolbar toolbar;
@@ -40,9 +39,15 @@ public class WebActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 //        toolbar.setLogo(R.drawable.ic_sync_black_24dp);
-        toolbar.setTitle("My Title");
+//        toolbar.setTitle("My Title");
         toolbar.setSubtitle("Sub title");
-        toolbar.setNavigationIcon(R.drawable.ic_notifications_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                back();
+            }
+        });
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -91,6 +96,17 @@ public class WebActivity extends AppCompatActivity {
 //        });
 
 //        init();
+    }
+
+    private boolean back() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+            return true;
+        } else {
+            // 结束当前Activity
+            this.finish();
+        }
+        return false;
     }
 
     @Override
@@ -245,17 +261,25 @@ public class WebActivity extends AppCompatActivity {
         });
     }
 
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        Toast.makeText(WebActivity.this, "onSupportNavigateUp", Toast.LENGTH_SHORT).show();
+//        return super.onSupportNavigateUp();
+//    }
+//
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Toast.makeText(WebActivity.this, "onBackPressed", Toast.LENGTH_SHORT).show();
+//    }
+
     // 按键事件处理
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (webView.canGoBack()) {
-                webView.goBack();
+            if (back()) {
                 return true;
-            } else {
-                // 结束当前Activity
-                this.finish();
             }
         }
         return super.onKeyDown(keyCode, event);

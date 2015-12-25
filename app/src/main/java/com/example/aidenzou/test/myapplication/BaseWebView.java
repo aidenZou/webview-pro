@@ -43,7 +43,7 @@ public class BaseWebView extends WebView {
         init(context);
     }
 
-//    @SuppressLint("SetJavaScriptEnabled")
+    //    @SuppressLint("SetJavaScriptEnabled")
     private void init(Context context) {
         WebSettings webSettings = this.getSettings();
         // 启用支持 Javascript
@@ -160,7 +160,10 @@ public class BaseWebView extends WebView {
         @Override
         public void onReceivedTitle(WebView view, String title) {
             // 设置title
-//            toolbar.setTitle(title);
+            // toolbar.setTitle(title);
+            if (activity != null) {
+                activity.setTitle(title);
+            }
             super.onReceivedTitle(view, title);
         }
 
