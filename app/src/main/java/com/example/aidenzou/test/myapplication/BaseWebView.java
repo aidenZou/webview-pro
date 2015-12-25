@@ -58,7 +58,7 @@ public class BaseWebView extends WebView {
 
 
         // 有限使用缓存
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        //webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         // 不使用缓存
         //webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 

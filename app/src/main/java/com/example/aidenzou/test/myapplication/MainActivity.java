@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity
         // 启用支持 Javascript
         webSettings.setJavaScriptEnabled(true);
         // 有限使用缓存
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        //webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         // 不使用缓存
         //webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
